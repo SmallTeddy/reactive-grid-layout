@@ -31,7 +31,9 @@ const div5style = ref({ gridArea: '' })
 
 
 const handleChangeLayout = (item: string) => {
-  if (item === 'split') return
+  if (item === 'split' || item.indexOf('-active') > -1) return
+  svgItems.value = resetSvgItems()
+  svgItems.value = svgItems.value.map(svg => svg.replace(item, `${item}-active`))
   switch (item) {
     case 'layout01':
       div1style.value.gridArea = '1 / 1 / 7 / 3'
@@ -103,8 +105,6 @@ const handleChangeLayout = (item: string) => {
       svgItem.value = [1, 2, 3, 4]
       break
   }
-  svgItems.value = resetSvgItems()
-  svgItems.value = svgItems.value.map(svg => svg.replace(item, `${item}-active`))
 }
 
 onMounted(() => {
@@ -146,6 +146,7 @@ onMounted(() => {
 .layout {
   width: 100%;
   height: 800px;
+  margin-top: 10px;
 }
 
 .parent {
